@@ -14,7 +14,7 @@ app.get("/:ticker", async (req, res) => {
   const { key } = req.query;
 
   if (!ticker || !key) {
-    res.status(400).send({ messsage: "Please provide key and ticker" });
+    res.status(400).send({ message: "Please provide key and ticker" });
   }
 
   const url = `https://finance.yahoo.com/quote/${ticker}/history`;
