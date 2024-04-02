@@ -16,6 +16,13 @@ app.get("/:ticker", async (req, res) => {
     return res.status(400).send({ message: "Please provide key and ticker" });
   }
 
+  // const url = "https://ca.finance.yahoo.com/quote/MRNA/key-statistics";
+  // const response = await fetch(url);
+  // const data = await response.text();
+  // console.log("Date Type", typeof data);
+  // const $ = cheerio.load(data);
+  // return res.send($('section[data-test="qsp-statistics"]').html());
+
   try {
     const stockInfo = await Promise.all(
       ["key-statistics", "history"].map(async (type) => {
