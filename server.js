@@ -1,6 +1,6 @@
 const cheerio = require("cheerio");
 const app = require("express")();
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 8008;
 
 app.use(require("cors")());
 
@@ -13,23 +13,18 @@ app.get("/:ticker", async (req, res) => {
   const { key } = req.query;
 
   if (!ticker || !key) {
-    res.status(400).send({ message: "Please provide key and ticker" });
+    return res.status(400).send({ message: "Please provide key and ticker" });
   }
 
   const url = `https://finance.yahoo.com/quote/${ticker}/history`;
 
   try {
     const response = await fetch(url);
-    if (!response.ok) {
-      console.log("Don't worry, everything is fine");
-      return;
-    }
     const data = await response.text();
     const $ = cheerio.load(data);
-    return res.send($.html());
+    res.send($.html());
   } catch (error) {
-    console.error("Error fetching data:", error);
-    return res.status(500).send({ message: "Error fetching data" });
+    res.status(500).send({ message: "Error fetching data" });
   }
 });
 
