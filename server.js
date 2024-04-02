@@ -22,7 +22,10 @@ app.get("/:ticker", async (req, res) => {
     const response = await fetch(url);
     const data = await response.text();
     const $ = cheerio.load(data);
-    res.send($.html());
+    const prices = $("td:nth-child(6)")
+      .get()
+      .map((val) => $(val).text());
+    res.send({ data: prices });
   } catch (error) {
     res.status(500).send({ message: "Error fetching data" });
   }
