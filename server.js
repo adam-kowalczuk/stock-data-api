@@ -33,6 +33,32 @@ app.get("/:ticker", async (req, res) => {
         }
 
         if (type === "key-statistics") {
+          const metrics = [
+            "Market Cap (intraday)",
+            "Trailing P/E",
+            "Forward P/E",
+            "PEG Ratio (5 yr expected)",
+            "Price/Sales (ttm)",
+            "Price/Book (mrq)",
+            "Enterprise Value/Revenue",
+            "Enterprise Value/EBITDA",
+            "Shares Outstanding5",
+            "Profit Margin",
+            "Operating Margin (ttm)",
+            "Return on Assets (ttm)",
+            "Return on Equity (ttm)",
+            "Revenue (ttm)",
+            "Revenue Per Share (ttm)",
+            "Quarterly Revenue Growth (yoy)",
+            "Gross Profit (ttm)",
+            "EBITDA",
+            "Net Income Avi to Common (ttm)",
+            "Quarterly Earnings Growth (yoy)",
+            "Total Cash (mrq)",
+            "Total Debt (mrq)",
+            "Total Debt/Equity (mrq)",
+            "Operating Cash Flow (ttm)"
+          ];
         }
       })
     );
