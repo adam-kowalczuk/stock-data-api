@@ -16,18 +16,29 @@ app.get("/:ticker", async (req, res) => {
     return res.status(400).send({ message: "Please provide key and ticker" });
   }
 
-  const url = `https://finance.yahoo.com/quote/${ticker}/history`;
-
   try {
-    const response = await fetch(url);
-    const data = await response.text();
-    const $ = cheerio.load(data);
-    const prices = $("td:nth-child(6)")
-      .get()
-      .map((val) => $(val).text());
+    const stockInfo = await Promise.all(
+      ["key-statistics", "history"].map(async (type) => {
+        const url = `https://finance.yahoo.com/quote/${ticker}/${type}`;
+
+        const response = await fetch(url);
+        const data = await response.text();
+        const $ = cheerio.load(data);
+
+        if (type === "history") {
+          const prices = $("td:nth-child(6)")
+            .get()
+            .map((val) => $(val).text());
+          return { prices };
+        }
+
+        if (type === "key-statistics") {
+        }
+      })
+    );
     res.send({ data: prices });
   } catch (error) {
-    res.status(500).send({ message: "Error fetching data" });
+    res.status(500).send({ message: error.message });
   }
 });
 
