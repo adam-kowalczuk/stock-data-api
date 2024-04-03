@@ -75,7 +75,25 @@ app.get("/:ticker", async (req, res) => {
             'section[data-test="qsp-statistics"] > div:nth-child(2) tr'
           )
             .get()
-            .map((val) => {});
+            .map((val) => $(val).text())
+            .reduce((acc, curr) => {
+              const includedCheck = metrics.reduce((acc, curr2) => {
+                if (acc === true) return true;
+                return curr.includes(curr2);
+              }, false);
+              if (includedCheck) {
+                const title = metrics.reduce((acc, curr2) => {
+                  if (curr.includes(curr2)) {
+                    return curr2;
+                  }
+                  return acc;
+                }, "");
+                return { ...acc, [title]: curr.replace(title, "") };
+              } else {
+                return acc;
+              }
+            }, {});
+          console.log(stats);
         }
       })
     );
