@@ -2,6 +2,7 @@
 const cheerio = require("cheerio");
 const app = require("express")();
 const port = process.env.PORT || 8008;
+const secretKey = process.env.SECRET_PASS;
 
 // Middleware to enable Cross-Origin Resource Sharing (CORS)
 app.use(require("cors")());
@@ -18,7 +19,7 @@ app.get("/:ticker", async (req, res) => {
   const { key } = req.query;
 
   // Check if ticker and key are provided
-  if (!ticker || !key) {
+  if (!ticker || !key || key !== secretKey) {
     return res.status(400).send({ message: "Please provide key and ticker" });
   }
 
