@@ -114,13 +114,13 @@ app.get("/:ticker", async (req, res) => {
 
               return { ...acc, [curr[0]]: curr[1] };
             }, {});
-          return { financials: stats };
+          return { stats };
         }
       })
     );
 
     res.status(200).send({
-      [ticker]: stockInfo.reduce((acc, curr) => {
+      data: stockInfo.reduce((acc, curr) => {
         return { ...acc, [Object.keys(curr)[0]]: Object.values(curr)[0] };
       }, {})
     });
