@@ -21,7 +21,11 @@ app.get("/:ticker", async (req, res) => {
   // const data = await response.text();
   // console.log("Date Type", typeof data);
   // const $ = cheerio.load(data);
-  // return res.send($('section[data-test="qsp-statistics"]').html());
+  // return res.send({
+  //   data: $('section[data-test="qsp-statistics"] > div:nth-child(2) tr')
+  //     .get()
+  //     .map((val) => $(val).text())
+  // });
 
   try {
     const stockInfo = await Promise.all(
@@ -66,6 +70,12 @@ app.get("/:ticker", async (req, res) => {
             "Total Debt/Equity (mrq)",
             "Operating Cash Flow (ttm)"
           ];
+
+          const stats = $(
+            'section[data-test="qsp-statistics"] > div:nth-child(2) tr'
+          )
+            .get()
+            .map((val) => {});
         }
       })
     );
