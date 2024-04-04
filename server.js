@@ -1,4 +1,5 @@
 // Import required modules
+require("dotenv").config();
 const cheerio = require("cheerio");
 const app = require("express")();
 const port = process.env.PORT || 8008;
